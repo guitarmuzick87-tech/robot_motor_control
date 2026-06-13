@@ -113,9 +113,9 @@ void ISR_fl_enc() {
 
 void ISR_fr_enc() {
   if (digitalRead(FR_ENC_B) == HIGH) {
-    fr_ticks++;
+    fr_ticks--; //Mirrored on the right from the left because the orientation is backwards
   } else {
-    fr_ticks--;
+    fr_ticks++;
   }
 }
 

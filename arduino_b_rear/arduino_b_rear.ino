@@ -78,9 +78,9 @@ void ISR_rl_enc() {
 
 void ISR_rr_enc() {
   if (digitalRead(RR_ENC_B) == HIGH) {
-    rr_ticks++;
+    rr_ticks--; //Mirrored because the wheel rotation is technically backwards
   } else {
-    rr_ticks--;
+    rr_ticks++;
   }
 }
 
