@@ -1,0 +1,1 @@
+/root/ros2_ws/robot_motor_control/build/my_package/ament_cmake_environment_hooks/local_setup.zsh
