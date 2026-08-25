@@ -1,0 +1,35 @@
+[0.014s] Invoking command in '/home/alexanderhamilton/robot_motor_control/dev_ws/src/build/my_package': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/alexanderhamilton/robot_motor_control/dev_ws/src/my_package -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/alexanderhamilton/robot_motor_control/dev_ws/src/install/my_package
+[0.474s] -- The C compiler identification is GNU 13.3.0
+[0.971s] -- The CXX compiler identification is GNU 13.3.0
+[1.031s] -- Detecting C compiler ABI info
+[1.266s] -- Detecting C compiler ABI info - done
+[1.286s] -- Check for working C compiler: /usr/bin/cc - skipped
+[1.287s] -- Detecting C compile features
+[1.288s] -- Detecting C compile features - done
+[1.314s] -- Detecting CXX compiler ABI info
+[1.546s] -- Detecting CXX compiler ABI info - done
+[1.567s] -- Check for working CXX compiler: /usr/bin/c++ - skipped
+[1.567s] -- Detecting CXX compile features
+[1.567s] -- Detecting CXX compile features - done
+[1.579s] -- Found ament_cmake: 2.5.6 (/opt/ros/jazzy/share/ament_cmake/cmake)
+[1.853s] -- Found Python3: /home/alexanderhamilton/.local/bin/python3.11 (found version "3.11.15") found components: Interpreter 
+[2.001s] -- Override CMake install command with custom implementation using symlinks instead of copying resources
+[2.088s] -- Found ament_lint_auto: 0.17.5 (/opt/ros/jazzy/share/ament_lint_auto/cmake)
+[2.129s] Traceback (most recent call last):
+[2.129s]   File "/opt/ros/jazzy/share/ament_cmake_core/cmake/core/package_xml_2_cmake.py", line 22, in <module>
+[2.129s]     from catkin_pkg.package import parse_package_string
+[2.129s] ModuleNotFoundError: No module named 'catkin_pkg'
+[2.144s] [31mCMake Error at /opt/ros/jazzy/share/ament_cmake_core/cmake/core/ament_package_xml.cmake:95 (message):
+[2.145s]   execute_process(/home/alexanderhamilton/.local/bin/python3.11
+[2.145s]   /opt/ros/jazzy/share/ament_cmake_core/cmake/core/package_xml_2_cmake.py
+[2.145s]   /home/alexanderhamilton/robot_motor_control/dev_ws/src/my_package/package.xml
+[2.145s]   /home/alexanderhamilton/robot_motor_control/dev_ws/src/build/my_package/ament_cmake_core/package.cmake)
+[2.145s]   returned error code 1
+[2.146s] Call Stack (most recent call first):
+[2.146s]   /opt/ros/jazzy/share/ament_cmake_core/cmake/core/ament_package_xml.cmake:49 (_ament_package_xml)
+[2.146s]   /opt/ros/jazzy/share/ament_lint_auto/cmake/ament_lint_auto_find_test_dependencies.cmake:31 (ament_package_xml)
+[2.146s]   CMakeLists.txt:32 (ament_lint_auto_find_test_dependencies)
+[2.147s] 
+[2.147s] -- Configuring incomplete, errors occurred!
+[2.147s] [0m
+[2.155s] Invoked command in '/home/alexanderhamilton/robot_motor_control/dev_ws/src/build/my_package' returned '1': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/alexanderhamilton/robot_motor_control/dev_ws/src/my_package -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/alexanderhamilton/robot_motor_control/dev_ws/src/install/my_package

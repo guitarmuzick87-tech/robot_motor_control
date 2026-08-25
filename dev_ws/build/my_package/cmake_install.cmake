@@ -1,8 +1,8 @@
-# Install script for directory: /root/ros2_ws/robot_motor_control/dev_ws/src/my_package
+# Install script for directory: /home/alexanderhamilton/robot_motor_control/dev_ws/src/my_package
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
-  set(CMAKE_INSTALL_PREFIX "/root/ros2_ws/robot_motor_control/dev_ws/install/my_package")
+  set(CMAKE_INSTALL_PREFIX "/home/alexanderhamilton/robot_motor_control/dev_ws/install/my_package")
 endif()
 string(REGEX REPLACE "/$" "" CMAKE_INSTALL_PREFIX "${CMAKE_INSTALL_PREFIX}")
 
@@ -37,8 +37,13 @@ if(NOT DEFINED CMAKE_CROSSCOMPILING)
   set(CMAKE_CROSSCOMPILING "FALSE")
 endif()
 
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  include("/root/ros2_ws/robot_motor_control/dev_ws/build/my_package/ament_cmake_symlink_install/ament_cmake_symlink_install.cmake")
+# Set default install directory permissions.
+if(NOT DEFINED CMAKE_OBJDUMP)
+  set(CMAKE_OBJDUMP "/usr/bin/objdump")
+endif()
+
+if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
+  include("/home/alexanderhamilton/robot_motor_control/dev_ws/build/my_package/ament_cmake_symlink_install/ament_cmake_symlink_install.cmake")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)
@@ -49,5 +54,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/root/ros2_ws/robot_motor_control/dev_ws/build/my_package/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/alexanderhamilton/robot_motor_control/dev_ws/build/my_package/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

@@ -1,0 +1,22 @@
+[0.022s] Invoking command in '/home/alexanderhamilton/robot_motor_control/dev_ws/src/build/my_package': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/alexanderhamilton/robot_motor_control/dev_ws/src/my_package -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/alexanderhamilton/robot_motor_control/dev_ws/src/install/my_package
+[0.050s] -- Found ament_cmake: 2.5.6 (/opt/ros/jazzy/share/ament_cmake/cmake)
+[0.427s] -- Override CMake install command with custom implementation using symlinks instead of copying resources
+[0.441s] -- Found ament_lint_auto: 0.17.5 (/opt/ros/jazzy/share/ament_lint_auto/cmake)
+[0.480s] Traceback (most recent call last):
+[0.480s]   File "/opt/ros/jazzy/share/ament_cmake_core/cmake/core/package_xml_2_cmake.py", line 22, in <module>
+[0.480s]     from catkin_pkg.package import parse_package_string
+[0.481s] ModuleNotFoundError: No module named 'catkin_pkg'
+[0.498s] -- Configuring incomplete, errors occurred!
+[0.498s] [31mCMake Error at /opt/ros/jazzy/share/ament_cmake_core/cmake/core/ament_package_xml.cmake:95 (message):
+[0.498s]   execute_process(/home/alexanderhamilton/.local/bin/python3.11
+[0.498s]   /opt/ros/jazzy/share/ament_cmake_core/cmake/core/package_xml_2_cmake.py
+[0.498s]   /home/alexanderhamilton/robot_motor_control/dev_ws/src/my_package/package.xml
+[0.498s]   /home/alexanderhamilton/robot_motor_control/dev_ws/src/build/my_package/ament_cmake_core/package.cmake)
+[0.498s]   returned error code 1
+[0.498s] Call Stack (most recent call first):
+[0.498s]   /opt/ros/jazzy/share/ament_cmake_core/cmake/core/ament_package_xml.cmake:49 (_ament_package_xml)
+[0.499s]   /opt/ros/jazzy/share/ament_lint_auto/cmake/ament_lint_auto_find_test_dependencies.cmake:31 (ament_package_xml)
+[0.499s]   CMakeLists.txt:32 (ament_lint_auto_find_test_dependencies)
+[0.499s] 
+[0.499s] [0m
+[0.503s] Invoked command in '/home/alexanderhamilton/robot_motor_control/dev_ws/src/build/my_package' returned '1': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy DEBUGINFOD_URLS=https://debuginfod.ubuntu.com /usr/bin/cmake /home/alexanderhamilton/robot_motor_control/dev_ws/src/my_package -DAMENT_CMAKE_SYMLINK_INSTALL=1 -DCMAKE_INSTALL_PREFIX=/home/alexanderhamilton/robot_motor_control/dev_ws/src/install/my_package

@@ -1,1 +1,1 @@
-/root/ros2_ws/robot_motor_control/dev_ws/build/my_package/ament_cmake_core/my_packageConfig-version.cmake
+/home/alexanderhamilton/robot_motor_control/dev_ws/build/my_package/ament_cmake_core/my_packageConfig-version.cmake
