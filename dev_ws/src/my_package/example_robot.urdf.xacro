@@ -36,104 +36,23 @@
         </visual>
     </link>
 
-
-    <joint name="base_to_l3" type="revolute">
-        <parent link="base" />
-        <child link="l3" />
-        <origin  rpy="0 0 0" xyz="0 0.25 0" />
-        <axis rpy="0 0 0" xyz="0 0 1" />
-        <limit effort="0.1" lower="-3.1" upper="3.1" velocity="0.2"/>
+    <joint name="chasis_joint" type="fixed">
+        <parent link="base"/>
+        <child link="chassis"/>
+        <origin xyz="-0.1 0 0"/>
     </joint>
 
-
-    <link name="l3">
+    <link name="chassis">
         <visual>
-            <origin xyz="0.75 0 0" rpy="0 1.57 0"/>
+            <origin xyz="0.15 0 0.075"/>
             <geometry>
-                <cylinder length="1.5" radius="0.04" />
+                <box size="0.3 0.3 0.15"/>
             </geometry>
-            <material name="orange" />
-        </visual>
-    </link>
-
-    <joint name="l3_to_l2" type="revolute">
-        <parent link="l3" />
-        <child link="l2" />
-        <!-- <origin xyz="1 0 0" /> -->
-        <origin rpy="0 0 0" xyz="1.5 0 0" />
-        <axis rpy="0 0 0" xyz="0 0 1" />
-        <limit effort="0.1" lower="-3.1" upper="3.1" velocity="0.2"/>
-    </joint>
-
-
-    <link name="l2">
-        <visual>
-            <origin xyz="0.75 0 0" rpy="0 1.57 0"/>
-            <geometry>
-                
-                <cylinder length="1.5" radius="0.04" />
-            </geometry>
-            <material name="orange" />
-        </visual>
-    </link>
-
-    <joint name="l2_to_l1" type="revolute">
-        <parent link="l2" />
-        <child link="l1" />
-        <origin rpy="0 0 0" xyz="1.5 0 0" />
-        <axis rpy="0 0 0" xyz="0 0 1" />
-        <limit effort="0.1" lower="-3.1" upper="3.1" velocity="0.2"/>
-    </joint>
-
-
-    <link name="l1">
-        <visual>
-            <origin xyz="0.5 0 0" rpy="0 1.57 0"/>
-            <geometry>
-                
-                <cylinder length="1" radius="0.04" />
-            </geometry>
-            <material name="orange" />
+            <material name="white"/>
         </visual>
     </link>
 
 
-    <joint name="l1_to_grip" type="revolute">
-        <parent link="l1" />
-        <child link="grip" />
-        <origin rpy="0 0 0" xyz="1 0 0" />
-        <axis rpy="0 0 0" xyz="0 0 1" />
-        <limit effort="0.1" lower="-3.1" upper="3.1" velocity="0.2"/>
-    </joint>
-
-
-    <link name="grip">
-        <visual>
-            <origin xyz="0.25 0 0"/>
-            <geometry>
-                <box size="0.5 0.5 0.05" />
-            </geometry>
-            <material name="white" />
-        </visual>
-    </link>
-
-
-
-    <joint name="world_to_camera" type="fixed">
-        <parent link="world" />
-        <child link="camera" />
-        <origin  rpy="-2 0 2.5" xyz="4 1 2" />
-    </joint>
-
-    <link name="camera">
-        <visual>
-            <origin xyz="0 0 -0.2"/>
-            <geometry>
-                <box size="0.2 0.2 0.4" />
-            </geometry>
-            <material name="blue" />
-        </visual>
-    </link>
 
 
 </robot>
