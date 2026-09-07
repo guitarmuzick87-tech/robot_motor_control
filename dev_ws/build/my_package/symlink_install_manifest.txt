@@ -1,5 +1,9 @@
+/home/alexanderhamilton/robot_motor_control/dev_ws/install/my_package/share/my_package/config/empty.yaml
+/home/alexanderhamilton/robot_motor_control/dev_ws/install/my_package/share/my_package/description/robot.urdf.xacro
 /home/alexanderhamilton/robot_motor_control/dev_ws/install/my_package/share/my_package/launch/listener.launch.py
+/home/alexanderhamilton/robot_motor_control/dev_ws/install/my_package/share/my_package/launch/rsp.launch.py
 /home/alexanderhamilton/robot_motor_control/dev_ws/install/my_package/share/my_package/launch/talker.launch.py
+/home/alexanderhamilton/robot_motor_control/dev_ws/install/my_package/share/my_package/worlds/empty.world
 /home/alexanderhamilton/robot_motor_control/dev_ws/install/my_package/share/ament_index/resource_index/package_run_dependencies/my_package
 /home/alexanderhamilton/robot_motor_control/dev_ws/install/my_package/share/ament_index/resource_index/parent_prefix_path/my_package
 /home/alexanderhamilton/robot_motor_control/dev_ws/install/my_package/share/my_package/environment/ament_prefix_path.sh

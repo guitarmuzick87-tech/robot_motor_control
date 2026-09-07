@@ -315,8 +315,8 @@ message(STATUS "Execute custom install script")
 
 # begin of custom install code
 
-# install(DIRECTORY "launch" "DESTINATION" "share/my_package")
-ament_cmake_symlink_install_directory("/home/alexanderhamilton/robot_motor_control/dev_ws/src/my_package" DIRECTORY "launch" "DESTINATION" "share/my_package")
+# install(DIRECTORY "config" "description" "launch" "worlds" "DESTINATION" "share/my_package")
+ament_cmake_symlink_install_directory("/home/alexanderhamilton/robot_motor_control/dev_ws/src/my_package" DIRECTORY "config" "description" "launch" "worlds" "DESTINATION" "share/my_package")
 
 # install(FILES "/home/alexanderhamilton/robot_motor_control/dev_ws/build/my_package/ament_cmake_index/share/ament_index/resource_index/package_run_dependencies/my_package" "DESTINATION" "share/ament_index/resource_index/package_run_dependencies")
 ament_cmake_symlink_install_files("/home/alexanderhamilton/robot_motor_control/dev_ws/src/my_package" FILES "/home/alexanderhamilton/robot_motor_control/dev_ws/build/my_package/ament_cmake_index/share/ament_index/resource_index/package_run_dependencies/my_package" "DESTINATION" "share/ament_index/resource_index/package_run_dependencies")
