@@ -1,0 +1,6 @@
+[0.022s] Invoking command in '/home/alexanderhamilton/robot_motor_control/build/my_package': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --build /home/alexanderhamilton/robot_motor_control/build/my_package -- -j4 -l4
+[0.040s] [0mCMake Error: The current CMakeCache.txt directory /home/alexanderhamilton/robot_motor_control/build/my_package/CMakeCache.txt is different than the directory /root/ros2_ws/robot_motor_control/build/my_package where CMakeCache.txt was created. This may result in binaries being created in the wrong place. If you are not sure, reedit the CMakeCache.txt[0m
+[0.066s] [0mCMake Error: The source directory "/root/ros2_ws/robot_motor_control/my_package" does not exist.
+[0.067s] Specify --help for usage, or press the help button on the CMake GUI.[0m
+[0.069s] make: *** [Makefile:222: cmake_check_build_system] Error 1
+[0.072s] Invoked command in '/home/alexanderhamilton/robot_motor_control/build/my_package' returned '2': CMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}:/opt/ros/jazzy /usr/bin/cmake --build /home/alexanderhamilton/robot_motor_control/build/my_package -- -j4 -l4
