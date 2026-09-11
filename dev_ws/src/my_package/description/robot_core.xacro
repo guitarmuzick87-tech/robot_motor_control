@@ -20,7 +20,10 @@
     </material>
 
     <link name="base">
-
+        <inertial>
+            <mass value="0.1"/>
+            <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001"/>
+        </inertial>
     </link>
 
     <joint name="chasis_joint" type="fixed">
@@ -70,8 +73,8 @@
             <surface>
                 <friction>
                     <ode>
-                        <mu>0</mu>
-                        <mu2>0</mu2>
+                        <mu>1.0</mu>
+                        <mu2>1.0</mu2>
                     </ode>
                 </friction>
             </surface>
@@ -102,8 +105,8 @@
             <surface>
                 <friction>
                     <ode>
-                        <mu>0</mu>
-                        <mu2>0</mu2>
+                        <mu>1.0</mu>
+                        <mu2>1.0</mu2>
                     </ode>
                 </friction>
             </surface>
