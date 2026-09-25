@@ -3,6 +3,7 @@
 
     <ros2_control name="GazeboSystem" type="system">
         <hardware>
+            <!-- Correct: Hardware system plugin for ros2_control -->
             <plugin>gz_ros2_control/GazeboSimSystem</plugin>
         </hardware>
         <joint name="front_left_wheel_joint">
@@ -37,13 +38,13 @@
             <state_interface name="position"/>
             <state_interface name="velocity"/>
         </joint>
-
     </ros2_control>
+
     <gazebo>
-        <plugin name="gz_ros2_control::GazeboSimROS2ControlPlugin" filename="libgz_ros2_control-system.so">
+        <!-- Corrected: filename is the library name, name is GazeboSimROS2ControlPlugin -->
+        <plugin filename="gz_ros2_control-system" name="gz_ros2_control::GazeboSimROS2ControlPlugin">
             <parameters>$(find my_package)/config/my_controllers.yaml</parameters>
         </plugin>
     </gazebo>
-
 
 </robot>
