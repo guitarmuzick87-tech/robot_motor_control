@@ -4,3 +4,13 @@ ros2 run rplidar_ros rplidar_composition --ros-args -p serial_port:=/dev/serial/
 
 ## Stop the Lidar from spinning
 ros2 service call /stop_motor std_srvs/srv/Empty {}
+
+## Start the camera ros2 service
+ros2 run usb_cam usb_cam_node_exe
+
+##Bring up the ros2 image streaming webcam (uses a lot of bandwidth)
+ros2 run rqt_image_view rqt_image_view
+
+
+##Colcon build on the raspberry Pi
+colcon build --symlink-install --cmake-args -DPython3_EXECUTABLE=/usr/bin/python3

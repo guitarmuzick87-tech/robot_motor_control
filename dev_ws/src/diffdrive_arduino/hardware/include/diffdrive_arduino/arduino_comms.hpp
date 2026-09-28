@@ -54,6 +54,11 @@ public:
   }
 
 
+  void write_msg(const std::string &msg_to_send)
+  {
+    serial_conn_.Write(msg_to_send);
+  }
+
   std::string send_msg(const std::string &msg_to_send, bool print_output = false)
   {
     serial_conn_.FlushIOBuffers(); // Just in case
@@ -67,7 +72,7 @@ public:
     }
     catch (const LibSerial::ReadTimeout&)
     {
-        std::cerr << "The ReadByte() call has timed out." << std::endl ;
+        // Silently handle timeout to avoid flooding the logs and triggering overruns
     }
 
     if (print_output)
@@ -96,6 +101,13 @@ public:
     val_1 = std::atoi(token_1.c_str());
     val_2 = std::atoi(token_2.c_str());
   }
+  void set_motor_values_async(int val_1, int val_2)
+  {
+    std::stringstream ss;
+    ss << "m " << val_1 << " " << val_2 << "\r";
+    write_msg(ss.str());
+  }
+
   void set_motor_values(int val_1, int val_2)
   {
     std::stringstream ss;
