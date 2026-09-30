@@ -12,7 +12,6 @@ from launch.substitutions import LaunchConfiguration
 from launch_ros.actions import Node
 
 
-
 def generate_launch_description():
 
 
@@ -79,6 +78,52 @@ def generate_launch_description():
             {'use_sim_time': False},
             twist_mux_config])
 
+    # Camera
+    video_device_arg = DeclareLaunchArgument(
+        'video_device',
+        default_value='/dev/video0',
+        description='Video device to use'
+    )
+
+    usb_cam_node = Node(
+        package='usb_cam',
+        executable='usb_cam_node_exe',
+        namespace='camera',
+        output='screen',
+        parameters=[{
+            'video_device': LaunchConfiguration('video_device'),
+            'frame_id': 'camera_link_optical',
+            'image_width': 640,
+            'image_height': 480,
+            # Add these generic calibration values
+            'camera_name': 'usb_cam',
+            'camera_info_url': '', # Leave empty to use params below
+            'k': [500.0, 0.0, 320.0, 0.0, 500.0, 240.0, 0.0, 0.0, 1.0],
+            'p': [500.0, 0.0, 320.0, 0.0, 0.0, 500.0, 240.0, 0.0, 0.0, 0.0, 1.0, 0.0]
+
+        }]
+    )
+
+    #Lidar
+    lidar_config = DeclareLaunchArgument(
+        'serial_port',
+        default_value='/dev/serial/by-id/usb-Silicon_Labs_CP2102_USB_to_UART_Bridge_Controller_0001-if00-port0',
+        description='Serial port for the RPLidar'
+    )
+
+    lidar_node = Node(
+        package='rplidar_ros',
+        executable='rplidar_composition',
+        output='screen',
+        parameters=[{
+            'serial_port': LaunchConfiguration('serial_port'),
+            'frame_id': 'laser_frame',
+            'angle_compensate': True,
+            'scan_mode': 'Standard'
+        }]
+    )
+
+
 
     # Launch them all!
     return LaunchDescription([
@@ -87,4 +132,8 @@ def generate_launch_description():
         delayed_diff_drive_spawner,
         delayed_joint_broad_spawner,
         twist_mux,
+        video_device_arg,
+        usb_cam_node,
+        lidar_config,
+        lidar_node,
     ])
