@@ -8,7 +8,7 @@ def generate_launch_description():
     return LaunchDescription([
         DeclareLaunchArgument(
             'serial_port',
-            default_value='/dev/serial/by-id/usb-Silicon_Labs_CP2102_USB_to_UART_Bridge_Controller_0001-if00-port0',
+            default_value='/dev/robot_lidar',
             description='Serial port for the RPLidar'
         ),
         Node(
@@ -17,6 +17,7 @@ def generate_launch_description():
             output='screen',
             parameters=[{
                 'serial_port': LaunchConfiguration('serial_port'),
+                'serial_baudrate': 115200,
                 'frame_id': 'laser_frame',
                 'angle_compensate': True,
                 'scan_mode': 'Standard'

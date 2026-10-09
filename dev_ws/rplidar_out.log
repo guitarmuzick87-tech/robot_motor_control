@@ -1,0 +1,5 @@
+[INFO] [launch]: All log files can be found below /home/alexanderhamilton/.ros/log/2026-10-09-12-33-24-703810-sorbet-10947
+[INFO] [launch]: Default logging verbosity is set to INFO
+[INFO] [rplidar_composition-1]: process started with pid [10952]
+[rplidar_composition-1] [INFO] [1791563604.909172009] [rplidar_node]: RPLIDAR running on ROS 2 package rplidar_ros. SDK Version: '1.12.0'
+[rplidar_composition-1] [ERROR] [1791563609.419800398] [rplidar_node]: Error, operation time out. RESULT_OPERATION_TIMEOUT!
