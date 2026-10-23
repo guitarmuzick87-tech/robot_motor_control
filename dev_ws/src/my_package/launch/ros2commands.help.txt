@@ -1,4 +1,4 @@
-
+﻿
 ## Start the Lidar
 ros2 run rplidar_ros rplidar_composition --ros-args -p serial_port:=/dev/serial/by-id/usb-Silicon_Labs_CP2102_USB_to_UART_Bridge_Controller_0001-if00-port0 -p frame_id:=laser_frame -p angle_compensate:=true -p scan_mode:=Standard
 
@@ -18,3 +18,7 @@ colcon build --symlink-install --cmake-args -DPython3_EXECUTABLE=/usr/bin/python
 
 ## Teleop Keyboard
 ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args -p stamped:=true -p use_sim_time:=false
+
+## Start Slam toolbox
+ros2 launch slam_toolbox online_async_launch.py use_sim_time:=false params_file:=~/robot_motor_control/dev_ws/src/my_package/config/mapper_params_online_async.yaml 
+

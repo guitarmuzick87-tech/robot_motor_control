@@ -1,6 +1,6 @@
 controller_manager:
   ros__parameters:
-    update_rate: 5
+    update_rate: 10
 
     diff_cont:
       type: diff_drive_controller/DiffDriveController
@@ -25,5 +25,10 @@ diff_cont:
     wheel_separation: 0.35
     wheel_radius: 0.05
     cmd_vel_timeout: 0.0
+
+    # Rotational limits to prevent destabilization and SLAM drift
+    angular.z.has_velocity_limits: true
+    angular.z.max_velocity: 5.0
+    angular.z.min_velocity: -0.5
 
     use_stamped_vel: false

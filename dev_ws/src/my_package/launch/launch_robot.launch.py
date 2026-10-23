@@ -2,7 +2,6 @@ import os
 
 from ament_index_python.packages import get_package_share_directory
 
-
 from launch import LaunchDescription
 from launch.actions import IncludeLaunchDescription, DeclareLaunchArgument, TimerAction, RegisterEventHandler
 from launch.event_handlers import OnProcessStart
@@ -13,7 +12,6 @@ from launch_ros.actions import Node
 
 
 def generate_launch_description():
-
 
     # Include the robot_state_publisher launch file, provided by our own package. Force sim time to be enabled
     # !!! MAKE SURE YOU SET THE PACKAGE NAME CORRECTLY !!!
@@ -85,6 +83,7 @@ def generate_launch_description():
         description='Video device to use'
     )
 
+    # Camera node is disabled for now to reduce CPU/USB load and stabilize Lidar
     usb_cam_node = Node(
         package='usb_cam',
         executable='usb_cam_node_exe',
@@ -95,19 +94,19 @@ def generate_launch_description():
             'frame_id': 'camera_link_optical',
             'image_width': 640,
             'image_height': 480,
-            # Add these generic calibration values
             'camera_name': 'usb_cam',
-            'camera_info_url': '', # Leave empty to use params below
+            'camera_info_url': '',
             'k': [500.0, 0.0, 320.0, 0.0, 500.0, 240.0, 0.0, 0.0, 1.0],
             'p': [500.0, 0.0, 320.0, 0.0, 0.0, 500.0, 240.0, 0.0, 0.0, 0.0, 1.0, 0.0]
-
         }]
     )
+
+    delayed_usb_cam = TimerAction(period=5.0, actions=[usb_cam_node])
 
     #Lidar
     lidar_config = DeclareLaunchArgument(
         'serial_port',
-        default_value='/dev/serial/by-id/usb-Silicon_Labs_CP2102_USB_to_UART_Bridge_Controller_0001-if00-port0',
+        default_value='/dev/robot_lidar',
         description='Serial port for the RPLidar'
     )
 
@@ -117,12 +116,14 @@ def generate_launch_description():
         output='screen',
         parameters=[{
             'serial_port': LaunchConfiguration('serial_port'),
+            'serial_baudrate': 115200,
             'frame_id': 'laser_frame',
             'angle_compensate': True,
             'scan_mode': 'Standard'
         }]
     )
 
+    delayed_lidar = TimerAction(period=15.0, actions=[lidar_node])
 
 
     # Launch them all!
@@ -133,7 +134,7 @@ def generate_launch_description():
         delayed_joint_broad_spawner,
         twist_mux,
         video_device_arg,
-        usb_cam_node,
+        delayed_usb_cam,
         lidar_config,
-        lidar_node,
+        delayed_lidar,
     ])

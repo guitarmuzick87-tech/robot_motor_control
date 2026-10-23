@@ -1,0 +1,10 @@
+twist_mux:
+  ros__parameters:
+    # Priority 10: Manual override (Joystick)
+    # /cmd_vel_joy: 10
+
+    # Priority 5: General Teleop (Keyboard)
+    /cmd_vel: 5
+
+    # Priority 1: Autonomous Navigation (Nav2)
+    # /cmd_vel_nav: 1
