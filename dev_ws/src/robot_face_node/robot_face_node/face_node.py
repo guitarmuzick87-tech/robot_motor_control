@@ -4,10 +4,17 @@ from std_msgs.msg import String
 import threading
 import pygame
 
-# We need to import the App logic from the other directory
+# We need to import the App logic from the relative project directory
 import sys
 import os
-sys.path.append('/home/alexanderhamilton/robot_motor_control/robot_face')
+
+# Get the directory where face_node.py is located
+current_dir = os.path.dirname(os.path.abspath(__file__))
+# Move up to the root of the project (robot_motor_control) and into robot_face
+# Path: .../dev_ws/src/robot_face_node/robot_face_node/ -> .../robot_motor_control/robot_face
+project_root_logic = os.path.abspath(os.path.join(current_dir, "../../../../robot_face"))
+sys.path.append(project_root_logic)
+
 from face_logic import RobotFaceApp
 
 class RobotFaceNode(Node):
