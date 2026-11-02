@@ -1,8 +1,8 @@
 /*
- * arduino_a_front.ino — Front Wheel Controller (Merged with ROS 2 Driver Protocol)
+ * arduino_a_front.ino — Front Wheel Controller (PWM Speed Control)
  * =============================================================================
- * This version is compatible with the diffdrive_arduino ROS 2 driver.
- * It preserves OLED and INA226 functionality.
+ * This version implements PWM speed control to allow proportional velocity.
+ * Compatible with the diffdrive_arduino ROS 2 driver.
  */
 
 #include <Wire.h>
@@ -10,11 +10,14 @@
 #include <Adafruit_SSD1306.h>
 #include <INA226_WE.h>
 
-// ── Motor pins ────────────────────────────────────────────────────────────────
-#define FR_FWD 12
+// ── Motor pins (Updated: Pin 12 -> 6 for PWM support) ──────────────────────────
+#define FR_FWD 6
 #define FR_BWD 11
 #define FL_FWD 10
 #define FL_BWD  9
+
+// ── PWM Constants ──────────────────────────────────────────────────────────────
+#define MIN_PWM 150  // Minimum PWM to overcome static friction (deadband)
 
 // ── Encoder pins ──────────────────────────────────────────────────────────────
 #define FL_ENC_A 2    // INT0
@@ -62,28 +65,34 @@ void ISR_fl_enc() {
 }
 
 void ISR_fr_enc() {
-  // Mirrored on the right because orientation is backwards
   if (digitalRead(FR_ENC_B) == HIGH) { fr_ticks--; } else { fr_ticks++; }
 }
 
 // ═════════════════════════════════════════════════════════════════════════════
-// Motor Control (Simplified for ROS 2 Driver)
+// Motor Control (PWM Implementation with Deadband Compensation)
 // ═════════════════════════════════════════════════════════════════════════════
 void setMotors(int left_val, int right_val) {
+  int left_pwm = constrain(abs(left_val), 0, 255);
+  int right_pwm = constrain(abs(right_val), 0, 255);
+
+  // Apply minimum PWM to overcome deadband
+  if (left_pwm > 0 && left_pwm < MIN_PWM) left_pwm = MIN_PWM;
+  if (right_pwm > 0 && right_pwm < MIN_PWM) right_pwm = MIN_PWM;
+
   // Left Motor
   if (left_val > 0) {
-    digitalWrite(FL_FWD, HIGH); digitalWrite(FL_BWD, LOW);
+    analogWrite(FL_FWD, left_pwm); digitalWrite(FL_BWD, LOW);
   } else if (left_val < 0) {
-    digitalWrite(FL_FWD, LOW); digitalWrite(FL_BWD, HIGH);
+    digitalWrite(FL_FWD, LOW); analogWrite(FL_BWD, left_pwm);
   } else {
     digitalWrite(FL_FWD, LOW); digitalWrite(FL_BWD, LOW);
   }
 
   // Right Motor
   if (right_val > 0) {
-    digitalWrite(FR_FWD, HIGH); digitalWrite(FR_BWD, LOW);
+    analogWrite(FR_FWD, right_pwm); digitalWrite(FR_BWD, LOW);
   } else if (right_val < 0) {
-    digitalWrite(FR_FWD, LOW); digitalWrite(FR_BWD, HIGH);
+    digitalWrite(FR_FWD, LOW); analogWrite(FR_BWD, right_pwm);
   } else {
     digitalWrite(FR_FWD, LOW); digitalWrite(FR_BWD, LOW);
   }
@@ -99,19 +108,16 @@ void processDriverCommand() {
   if (Serial.available() > 0) {
     char cmd = Serial.read();
     if (cmd == 'e') {
-      // Response format: "L_ticks R_ticks\n"
       Serial.print(fl_ticks);
       Serial.print(" ");
       Serial.println(fr_ticks);
     } 
     else if (cmd == 'm') {
-      // Expects: " m val1 val2\r"
       int left_val = Serial.parseInt();
       int right_val = Serial.parseInt();
       setMotors(left_val, right_val);
     }
     else if (cmd == 'u') {
-      // PID command - ignore for now as we use digital
       while(Serial.available() > 0 && Serial.read() != '\r');
     }
   }
@@ -121,7 +127,7 @@ void processDriverCommand() {
 // Setup
 // ═════════════════════════════════════════════════════════════════════════════
 void setup() {
-  Serial.begin(57600); // MUST be 57600 for diffdrive_arduino driver
+  Serial.begin(57600); 
   Wire.begin();
 
   const int motorPins[] = {FR_FWD, FR_BWD, FL_FWD, FL_BWD};

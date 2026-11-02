@@ -1,0 +1,22 @@
+[project]
+name = "robot-face"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+authors = [
+    { name = "Matthew Anderson", email = "guitarmuzick87@gmail.com" }
+]
+requires-python = ">=3.11"
+dependencies = [
+    "pyaudio>=0.2.14",
+    "pygame>=2.6.1",
+    "pyttsx3>=2.99",
+    "speechrecognition>=3.17.0",
+]
+
+[project.scripts]
+robot-face = "robot_face:main"
+
+[build-system]
+requires = ["uv_build>=0.12.1,<0.13.0"]
+build-backend = "uv_build"
