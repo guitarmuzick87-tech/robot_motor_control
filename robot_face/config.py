@@ -14,3 +14,23 @@ MOUTH_OPEN = 2
 # Eye Configuration
 EYE_IDLE_CHANCE = 0.01      # Chance to change eye position per frame
 EYE_LOOK_DISTANCE = 0.5   # Offset multiplier for looking left/right
+
+# Voice Configuration (macOS 'say' command)
+# Leave as None to use system default. 
+# Example voices: 'Samantha', 'Alex', 'Victoria', 'Daniel', 'Fred'
+# Run `say -v '?'` in terminal to see all available voices on your Mac.
+VOICE_NAME = 'Daniel' 
+
+# Voice Profiles
+# Options: 'normal', 'grievous'
+CURRENT_VOICE_PROFILE = 'normal'
+
+VOICE_PROFILES = {
+    'normal': None, # No filter
+    'grievous': "asetrate=44100*0.7,atempo=1.2,aecho=0.8:0.02:20:0.3,highpass=f=400,lowpass=f=2500,volume=2.0"
+}
+
+# Mouth Size Configuration
+MOUTH_CLOSED_HEIGHT = 0.5   # Multiplier for scale (half scale)
+MOUTH_MID_HEIGHT = 1.0      # Multiplier for scale (2x scale)
+MOUTH_OPEN_HEIGHT = 1.3     # Multiplier for scale (4x scale)
