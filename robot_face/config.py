@@ -15,11 +15,22 @@ MOUTH_OPEN = 2
 EYE_IDLE_CHANCE = 0.01      # Chance to change eye position per frame
 EYE_LOOK_DISTANCE = 0.5   # Offset multiplier for looking left/right
 
-# Voice Configuration (macOS 'say' command)
-# Leave as None to use system default. 
-# Example voices: 'Samantha', 'Alex', 'Victoria', 'Daniel', 'Fred'
-# Run `say -v '?'` in terminal to see all available voices on your Mac.
-VOICE_NAME = 'Daniel' 
+# Voice Configuration
+# Mapping of platform to voice name. Leave as None to use system default.
+# Linux (espeak-ng): 'en-us', 'en-gb', etc.
+# macOS (say): 'Samantha', 'Alex', 'Victoria', 'Daniel', 'Fred'
+VOICE_NAMES = {
+    'linux': 'en-us',
+    'darwin': 'Daniel'
+}
+
+# Voice Speed (Rate of speaking)
+# Linux (espeak-ng): Words per minute (e.g., 175 is default)
+# macOS (say): Words per minute (e.g., 175 is default)
+VOICE_RATES = {
+    'linux': 115,
+    'darwin': 115
+}
 
 # Voice Profiles
 # Options: 'normal', 'grievous'

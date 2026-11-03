@@ -27,7 +27,7 @@ class SpeechManager:
         elif self.platform == "linux": # Ubuntu/Raspberry Pi
             self.temp_file = "speech_temp.wav"
             self.processed_file = "speech_processed.wav"
-            self.save_cmd = ['espeak', '-w']
+            self.save_cmd = ['espeak-ng', '-w']
             self.play_cmd = ['aplay']
         else:
             self.temp_file = "speech_temp.wav"
@@ -90,10 +90,20 @@ class SpeechManager:
                 # 1. Save TTS to temporary file
                 try:
                     # Build command: [cmd, arg, filename]
-                    # Add voice flag if VOICE_NAME is configured
                     cmd = self.save_cmd + [self.temp_file]
-                    if VOICE_NAME:
-                        cmd = cmd + ['-v', VOICE_NAME]
+                    
+                    # Add voice flag if VOICE_NAME is configured for this platform
+                    voice_name = VOICE_NAMES.get(self.platform)
+                    if voice_name:
+                        cmd = cmd + ['-v', voice_name]
+                    
+                    # Add speed flag if VOICE_RATE is configured for this platform
+                    voice_rate = VOICE_RATES.get(self.platform)
+                    if voice_rate:
+                        if self.platform == 'linux':
+                            cmd = cmd + ['-s', str(voice_rate)]
+                        elif self.platform == 'darwin':
+                            cmd = cmd + ['-r', str(voice_rate)]
                     cmd = cmd + [text]
                     
                     subprocess.run(cmd, check=True)
