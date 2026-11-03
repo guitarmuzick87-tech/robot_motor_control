@@ -3,7 +3,7 @@
 
 # ROS 2 Topics
 TOPIC_SPEECH = "/robot_face/speak"
-TOPIC_CAMERA = "/camera"
+TOPIC_CAMERA = "/camera/image_raw"
 TOPIC_MAP = "/map"
 TOPIC_CMD_VEL = "/cmd_vel"
 

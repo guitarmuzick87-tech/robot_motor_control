@@ -25,7 +25,7 @@ class SpeechManager:
         # Configure voice
         voices = self.engine.getProperty('voices')
         # Try to find a more "robotic" or clear voice if available
-        self.engine.setProperty('rate', 250) 
+        self.engine.setProperty('rate', 150) 
         self.engine.setProperty('volume', 1.0)
 
     def _speak_internal(self, text):

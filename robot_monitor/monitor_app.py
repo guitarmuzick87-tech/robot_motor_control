@@ -4,7 +4,7 @@ from rclpy.node import Node
 from std_msgs.msg import String
 from sensor_msgs.msg import Image
 from nav_msgs.msg import OccupancyGrid
-from geometry_msgs.msg import Twist
+from geometry_msgs.msg import Twist, TwistStamped
 from cv_bridge import CvBridge
 import cv2
 import numpy as np
@@ -18,7 +18,8 @@ class RobotMonitorNode(Node):
         
         # Publishers
         self.speech_pub = self.create_publisher(String, TOPIC_SPEECH, 10)
-        self.vel_pub = self.create_publisher(Twist, TOPIC_CMD_VEL, 10)
+        # Changed to TwistStamped to match teleop_twist_keyboard (stamped:=true)
+        self.vel_pub = self.create_publisher(TwistStamped, TOPIC_CMD_VEL, 10)
         
         # Subscribers
         self.bridge = CvBridge()
@@ -46,9 +47,13 @@ class RobotMonitorNode(Node):
         self.get_logger().info(f"Published to {TOPIC_SPEECH}: {text}")
 
     def send_velocity(self, linear_x=0.0, angular_z=0.0):
-        msg = Twist()
-        msg.linear.x = linear_x
-        msg.angular.z = angular_z
+        msg = TwistStamped()
+        # Add timestamp to the header
+        msg.header.stamp = self.get_clock().now().to_msg()
+        msg.header.frame_id = "base_link"
+        
+        msg.twist.linear.x = linear_x
+        msg.twist.angular.z = angular_z
         self.vel_pub.publish(msg)
 
     def toggle_service(self, service_name):
