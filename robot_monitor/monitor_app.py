@@ -5,6 +5,7 @@ from std_msgs.msg import String
 from sensor_msgs.msg import Image
 from nav_msgs.msg import OccupancyGrid
 from geometry_msgs.msg import Twist, TwistStamped
+from std_srvs.srv import Trigger
 from cv_bridge import CvBridge
 import cv2
 import numpy as np
@@ -57,9 +58,34 @@ class RobotMonitorNode(Node):
         self.vel_pub.publish(msg)
 
     def toggle_service(self, service_name):
-        # Placeholder for service call logic
-        self.get_logger().info(f"Toggling service: {service_name}")
-        # In a real scenario, you would use self.create_client() here
+        """Toggles a robot service using a ROS 2 service call."""
+        from std_srvs.srv import Empty
+        
+        # Determine which service to call based on current state
+        # Note: Since we are using Empty services, we just call them.
+        # The backend handles whether it's starting or stopping.
+        
+        self.get_logger().info(f"Calling service: {service_name}")
+        
+        client = self.create_client(Empty, service_name)
+        
+        if not client.wait_for_service(timeout_sec=2.0):
+            self.get_logger().error(f"Service {service_name} not available")
+            return
+
+        req = Empty.Request()
+        future = client.call_async(req)
+        
+        def callback(f):
+            try:
+                response = f.result()
+                self.get_logger().info(f"Service {service_name} call completed.")
+            except Exception as e:
+                self.get_logger().error(f"Service call failed: {e}")
+            finally:
+                self.destroy_client(client)
+
+        future.add_done_callback(callback)
 
 class MonitorGUI:
     def __init__(self, ros_node):
@@ -85,8 +111,9 @@ class MonitorGUI:
         self.buttons.append({'rect': pygame.Rect(370, 570, 100, 40), 'text': 'SEND', 'action': self.handle_send})
         
         # 2. Control Buttons - Moved to avoid overlapping sound bites
-        self.buttons.append({'rect': pygame.Rect(950, 570, 150, 40), 'text': 'LIDAR ON/OFF', 'action': lambda: self.node.toggle_service(SERVICE_LIDAR_CONTROL)})
-        self.buttons.append({'rect': pygame.Rect(950, 620, 150, 40), 'text': 'SLAM ON/OFF', 'action': lambda: self.node.toggle_service(SERVICE_SLAM_CONTROL)})
+        self.buttons.append({'rect': pygame.Rect(950, 570, 150, 40), 'text': 'LIDAR ON', 'action': lambda: self.node.toggle_service(SERVICE_LIDAR_ON)})
+        self.buttons.append({'rect': pygame.Rect(950, 620, 150, 40), 'text': 'LIDAR OFF', 'action': lambda: self.node.toggle_service(SERVICE_LIDAR_OFF)})
+        self.buttons.append({'rect': pygame.Rect(950, 670, 150, 40), 'text': 'SLAM ON/OFF', 'action': lambda: self.node.toggle_service(SERVICE_SLAM_CONTROL)})
         
         # 3. Sound Bite Buttons - Two column layout
         bx_start, by_start = 50, 640

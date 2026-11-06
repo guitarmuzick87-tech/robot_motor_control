@@ -3,3 +3,7 @@
 /dev_ws/log/
 *.wav
 *.aiff
+*.pyc
+*.mp3
+*/__pycache__/*
+*.__pycache__
