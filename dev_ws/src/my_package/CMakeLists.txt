@@ -36,4 +36,9 @@ install(
   DIRECTORY config description launch worlds
   DESTINATION share/${PROJECT_NAME}
 )
+
+install(
+  PROGRAMS my_package/slam_wrapper.py
+  DESTINATION lib/${PROJECT_NAME}
+)
 ament_package()

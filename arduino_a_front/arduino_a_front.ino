@@ -44,6 +44,8 @@ const unsigned long DISPLAY_INTERVAL_MS = 200;
 
 unsigned long lastPower   = 0;
 unsigned long lastDisplay = 0;
+const unsigned long WATCHDOG_TIMEOUT_MS = 1000;
+unsigned long lastCommandTime = 0;
 
 // ── Encoder state ───────────────────────────────────────────────────────────────
 volatile long fl_ticks = 0;
@@ -106,6 +108,7 @@ void setMotors(int left_val, int right_val) {
 // ═════════════════════════════════════════════════════════════════════════════
 void processDriverCommand() {
   if (Serial.available() > 0) {
+    lastCommandTime = millis();
     char cmd = Serial.read();
     if (cmd == 'e') {
       Serial.print(fl_ticks);
@@ -154,6 +157,7 @@ void setup() {
     ina226.setConversionTime(INA226_CONV_TIME_140);
     ina226.setMeasureMode(INA226_CONTINUOUS);
   }
+    Serial.println(F("ARDUINO_FRONT:READY"));
 }
 
 // ═════════════════════════════════════════════════════════════════════════════
@@ -161,6 +165,10 @@ void setup() {
 // ═════════════════════════════════════════════════════════════════════════════
 void loop() {
   processDriverCommand();
+
+  if (millis() - lastCommandTime > WATCHDOG_TIMEOUT_MS) {
+    setMotors(0, 0);
+  }
 
   unsigned long now = millis();
 

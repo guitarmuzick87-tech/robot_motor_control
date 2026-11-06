@@ -3,7 +3,7 @@
 
 # ROS 2 Topics
 TOPIC_SPEECH = "/robot_face/speak"
-TOPIC_CAMERA = "/camera/image_raw"
+TOPIC_CAMERA = "/camera/image_raw/compressed"
 TOPIC_MAP = "/map"
 TOPIC_CMD_VEL = "/cmd_vel"
 
@@ -12,7 +12,8 @@ TOPIC_CMD_VEL = "/cmd_vel"
 # ROS 2 Services (for control)
 SERVICE_LIDAR_ON = "/start_motor"
 SERVICE_LIDAR_OFF = "/stop_motor"
-SERVICE_SLAM_CONTROL = "/slam/control"
+SERVICE_SLAM_ON = "/toggle_slam"
+SERVICE_SLAM_OFF = "/toggle_slam"
 
 # Sound Bites (Mapping Button Label -> Text to send to robot_face/speak)
 SOUND_BITES = {
