@@ -1,7 +1,7 @@
 import pygame
 import rclpy
 from rclpy.node import Node
-from std_msgs.msg import String
+from std_msgs.msg import String, UInt8MultiArray
 from sensor_msgs.msg import Image, CompressedImage
 from nav_msgs.msg import OccupancyGrid
 from geometry_msgs.msg import Twist, TwistStamped
@@ -11,6 +11,7 @@ import cv2
 import numpy as np
 import threading
 import time
+import subprocess
 from config import *
 
 class RobotMonitorNode(Node):
@@ -29,6 +30,19 @@ class RobotMonitorNode(Node):
         
         self.create_subscription(CompressedImage, TOPIC_CAMERA, self.camera_callback, 10)
         self.create_subscription(OccupancyGrid, TOPIC_MAP, self.map_callback, 10)
+        self.create_subscription(UInt8MultiArray, '/robot/audio', self.audio_callback, 10)
+        
+        # Audio Playback Setup
+        self.sample_rate = 16000
+        self.channels = 1
+        # Use aplay to play raw PCM audio
+        self.audio_proc = subprocess.Popen(
+            ['aplay', '-f', 'S16_LE', '-r', str(self.sample_rate), '-c', str(self.channels), '-t', 'raw'],
+            stdin=subprocess.PIPE,
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+            bufsize=0
+        )
         
     def camera_callback(self, msg):
         try:
@@ -40,6 +54,13 @@ class RobotMonitorNode(Node):
 
     def map_callback(self, msg):
         self.latest_map = msg
+        
+    def audio_callback(self, msg):
+        try:
+            # Write the raw bytes directly to aplay's stdin
+            self.audio_proc.stdin.write(bytes(msg.data))
+        except Exception as e:
+            self.get_logger().error(f"Audio playback error: {e}")
 
     def send_speech(self, text):
         msg = String()
@@ -261,6 +282,8 @@ def main():
     try:
         gui.run()
     finally:
+        if hasattr(node, 'audio_proc'):
+            node.audio_proc.terminate()
         node.destroy_node()
         rclpy.shutdown()
         pygame.quit()

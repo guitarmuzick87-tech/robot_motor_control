@@ -38,7 +38,7 @@ install(
 )
 
 install(
-  PROGRAMS my_package/slam_wrapper.py
+  PROGRAMS my_package/slam_wrapper.py my_package/audio_publisher.py
   DESTINATION lib/${PROJECT_NAME}
 )
 ament_package()

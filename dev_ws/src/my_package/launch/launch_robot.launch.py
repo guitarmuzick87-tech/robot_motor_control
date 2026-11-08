@@ -126,13 +126,22 @@ def generate_launch_description():
     delayed_lidar = TimerAction(period=15.0, actions=[lidar_node])
 
 
+    # Audio Publisher
+    audio_pub_node = Node(
+        package='my_package',
+        executable='audio_publisher.py',
+        output='screen',
+    )
+    
+    delayed_audio_pub = TimerAction(period=10.0, actions=[audio_pub_node])
+
     # SLAM Wrapper
     slam_wrapper_node = Node(
         package='my_package',
         executable='slam_wrapper.py',
         output='screen',
     )
-
+    
     # Launch them all!
     return LaunchDescription([
         rsp,
@@ -144,5 +153,6 @@ def generate_launch_description():
         delayed_usb_cam,
         lidar_config,
         delayed_lidar,
+        delayed_audio_pub,
         slam_wrapper_node,
     ])
